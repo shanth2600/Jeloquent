@@ -29,6 +29,6 @@ public class Model {
     }
 
     public static void setTable(String table) {
-        Model.table = table;
-    }
+        Model.table = table;}
+    private static void create(){}
 }
