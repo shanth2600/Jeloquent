@@ -6,6 +6,6 @@ package jeloquent;
 public class jeloquent {
 
     public static void main(){
-        System.out.println("Hello everyone");
+        System.out.println("Hello Jeloquent developers");
     }
 }
