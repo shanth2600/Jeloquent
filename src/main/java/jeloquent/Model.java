@@ -1,5 +1,8 @@
 package jeloquent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Francis on 3/7/16.
  */
@@ -7,6 +10,7 @@ public class Model {
 
     private static String primaryKey;
     private static String table;
+    private static Map<String, String> model;
 
     public Model() {
         Model.table = "";
@@ -30,5 +34,19 @@ public class Model {
 
     public static void setTable(String table) {
         Model.table = table;}
-    private static void create(){}
+    protected static void create(String table, String pk){
+        model = new HashMap<>() ;
+        model.put(table, pk);
+
+    }
+
+    protected void find(String key){}
+    protected void destroy(String [] keys){}
+    protected QueryBuilder where(String field, String operator, String value){}
+    protected QueryBuilder hasOne(String relationship){}
+    protected QueryBuilder hasMany(String relationship){}
+    protected QueryBuilder belongsTo(String relationship){}
+    protected QueryBuilder belongsToMany(String relationship){}
+    protected QueryBuilder with(String relationship){}
+
 }
