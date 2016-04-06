@@ -14,27 +14,32 @@ public abstract class Model {
 
     public Model()
     {
+
         this.builder = new Builder("posts",this.fields);
     }
 
     public Map find(Integer id)
     {
+
         return this.builder.find(1);
     }
 
     public Map find(Integer id, String[] fields){
+
         return this.builder.find(id,fields);
     }
 
 
     public ArrayList all()
     {
+
         return this.builder.all();
     }
 
 
     public ArrayList all(String[] fields)
     {
+
         return this.builder.all(fields);
     }
 
@@ -44,10 +49,12 @@ public abstract class Model {
 
     public int create(Map fields)
     {
+
         return this.builder.create(fields);
     }
 
     public int update(int id, Map fields){
+
         return this.builder.update(id,fields);
     }
 
