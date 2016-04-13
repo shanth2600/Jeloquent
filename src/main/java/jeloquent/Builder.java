@@ -8,10 +8,10 @@ import java.util.*;
  */
 public class Builder {
 
-    public String dbms ="mysql";
-    public String serverName = "opg.local";
-    public String dbName="jeloquent";
-    public Integer portNumber = 3306;
+    //public String dbms ="mysql";
+    //public String serverName = "opg.local";
+    //public String dbName="jeloquent";
+    //public Integer portNumber = 3306;
     protected Connection conn = null;
     protected String table;
     protected String[] fields;
@@ -55,7 +55,8 @@ public class Builder {
         }catch(Exception e){
 
         }*/
-
+        sqlConnection connection = new sqlConnection(connectionType);
+        this.conn = connection.startConnection(connectionType);
 
     }
 

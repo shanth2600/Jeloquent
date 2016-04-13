@@ -16,13 +16,14 @@ public class sqlConnection {
 
     public sqlConnection(String connectionType){
         this.startConnection(connectionType);
+
     }
 
-    private void startConnection(String connectionType){
+    public Connection startConnection(String connectionType){
         try {
             switch (connectionType) {
                 case "mySQL":
-                    this.mySQL();
+                    this.conn = this.mySQL();
                     break;
                 case "sqLite":
                     System.out.println("Error: No Connection Type Defined For SQLITE");
@@ -31,14 +32,14 @@ public class sqlConnection {
         } catch (Exception e){
             System.out.println("Connection type unavailable");
         }
-
+        return this.conn;
     }
 
     private void sqLite(){
         //TODO add sqlite connection
     }
 
-    private void mySQL(){
+    private Connection mySQL(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -69,6 +70,7 @@ public class sqlConnection {
             }
 
         }
+        return this.conn;
     }
 }
 
