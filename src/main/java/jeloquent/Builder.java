@@ -18,10 +18,10 @@ public class Builder {
     protected String Query = "SELECT *";
     protected List<String[]> where = new ArrayList<>(0);
 
-    public Builder(String table, String[] fields){
+    public Builder(String table, String[] fields, String connectionType){
         this.table = table;
         this.fields = fields;
-        try{
+        /*try{
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
@@ -54,7 +54,7 @@ public class Builder {
             }
         }catch(Exception e){
 
-        }
+        }*/
 
 
     }

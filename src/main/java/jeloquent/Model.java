@@ -12,10 +12,10 @@ public abstract class Model {
     protected String[] fields = {"id","body","title"};
     protected Builder builder;
 
-    public Model()
+    public Model(String connectionType)
     {
 
-        this.builder = new Builder("posts",this.fields);
+        this.builder = new Builder("posts",this.fields, connectionType);
     }
 
     public Map find(Integer id)

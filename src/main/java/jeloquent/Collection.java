@@ -1,15 +1,18 @@
-package Jeloquent;
+package jeloquent;
+
+
 import java.util.*;
 
 /**
  * Created by sargis on 4/3/2016.
  */
 public class Collection {
-    private ArrayList<Model> Collection = new ArrayList<Model>();
+    private ArrayList<Model> Collection = new ArrayList<>();
     private int numOfModels;
 
 
     Collection() {
+
         numOfModels = 0;
     }
 
