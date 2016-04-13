@@ -16,10 +16,9 @@ public class sqlConnection {
 
     public sqlConnection(String connectionType){
         this.startConnection(connectionType);
-
     }
 
-    public Connection startConnection(String connectionType){
+    protected Connection startConnection(String connectionType){
         try {
             switch (connectionType) {
                 case "mySQL":
@@ -34,11 +33,11 @@ public class sqlConnection {
         }
         return this.conn;
     }
-
+///Connects to sqLite server
     private void sqLite(){
         //TODO add sqlite connection
     }
-
+///Connections to mySQl server
     private Connection mySQL(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
