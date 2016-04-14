@@ -17,6 +17,13 @@ public class Collection {
         Collection.add(newModel);
         numOfModels++;
     }
+    public void collect(ArrayList<Model> list) {
+        if(!list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++)
+                insert(list.get(i));
+
+        }
+    }
 
     public int Count() {
         int count = 0;
