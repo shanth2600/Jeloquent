@@ -1,12 +1,12 @@
 package jeloquent;
-
+/*
 <<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 
-/**
+*//**
  * Created by Francis on 3/7/16.
- */
+ *//*
 public class Model {
 
     private static String primaryKey;
@@ -49,7 +49,7 @@ public class Model {
     protected QueryBuilder belongsTo(String relationship){}
     protected QueryBuilder belongsToMany(String relationship){}
     protected QueryBuilder with(String relationship){}
-=======
+=======*/
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -100,6 +100,5 @@ public abstract class Model {
     public int update(int id, Map fields){
         return this.builder.update(id,fields);
     }
->>>>>>> remotes/origin/dev
 
 }

@@ -1,4 +1,4 @@
-package Jeloquent;
+package jeloquent;
 import java.util.*;
 
 /**
@@ -26,6 +26,13 @@ public class Collection {
             count++;
         }
         return count;
+    }
+    public void collect(ArrayList<Model> list) {
+        if(!list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++)
+                insert(list.get(i));
+
+        }
     }
 
     public boolean isEmpty() {
