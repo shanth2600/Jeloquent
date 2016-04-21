@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="764375314">
+    <data-source source="LOCAL" name="Sqlite (Xerial) - jeloquent.sqlite" uuid="bd1fe2df-5dc7-4196-a650-00b30f486373">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$APPLICATION_HOME_DIR$/bin/jeloquent.sqlite</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Sqlite (Xerial) - test.sqlite" uuid="ab48cb0e-f3be-4d3e-8d0d-0b00da36250d">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/test.sqlite</jdbc-url>
+    </data-source>
+  </component>
+</project>
