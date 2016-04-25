@@ -72,7 +72,5 @@ public abstract class Model {
         return builder;
     }
 
-//    public Map belongsTo(Class<User> userClass){
-//        System.out.println();
-//    }
+
 }

@@ -13,7 +13,7 @@ public class Post extends Model {
 
     public String user()
     {
-        return "jeloquent.user";
+        return "jeloquent.User";
     }
 
 

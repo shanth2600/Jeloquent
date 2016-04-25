@@ -11,6 +11,11 @@ public class User extends Model {
         return "jeloquent.Post";
     }
 
+    public String profiles()
+    {
+        return "jeloquent.Profile";
+    }
+
     @Override
     protected void instantiateBuilder(){
         this.builder = new Builder(this, this.table,this.fields);

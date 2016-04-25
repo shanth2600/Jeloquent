@@ -73,6 +73,7 @@ public class Builder {
 
     public ArrayList get()
     {
+
         ArrayList list = null;
         list = this.makeMapList(this.runQuery("SELECT * from "+this.table+" "+this.compileWhere()+";"));
         return list;
@@ -153,21 +154,27 @@ public class Builder {
         return explodedClass[index].toLowerCase();
     }
 
+    protected boolean endsWithS(String str)
+    {
+        return str.substring(str.length() -1).equals("s");
+    }
+
     protected Map mergeRelationship(String relationship, String modelClass, int id, Map record)
     {
         ArrayList ls = null;
-        if(relationship.substring(relationship.length() -1).equals("s")){
-            Model m = instantiateModel(modelClass);
-            String fieldName = this.table.substring(0,this.table.length()-1)+"_id";
-            ls = m.where(fieldName,"=",Integer.toString(id)).get();
-
-        }else{
-            Model m = instantiateModel(modelClass);
-            ls = m.where("id","=",Integer.toString(id)).get();
-        }
-
+        Model m = instantiateModel(modelClass);
+        String fieldName = this.endsWithS(relationship)?this.table.substring(0,this.table.length()-1)+"_id": "id";
+        ls = m.where(fieldName,"=",Integer.toString(id)).get();
         record.put(extractRelationship(modelClass),ls);
         return record;
+    }
+
+    public static void printList(ArrayList list)
+    {
+        int i;
+        for(i = 0; i < list.size(); i++ ){
+            System.out.println(list.get(i).toString());
+        }
     }
 
 
