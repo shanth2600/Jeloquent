@@ -1,6 +1,7 @@
 package jeloquent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -9,46 +10,69 @@ import java.util.Map;
 public abstract class Model {
 
     protected String table;
-    protected String[] fields = {"id","body","title"};
+    protected String[] fields;
     protected Builder builder;
 
-    public Model()
+    protected void instantiateBuilder(){
+        this.builder = new Builder(this, this.table,this.fields);
+    }
+
+    protected void createBuilderIfNotAlreadyCreated()
     {
-        this.builder = new Builder("posts",this.fields);
+        if(this.builder == null){
+            this.instantiateBuilder();
+        }
     }
 
     public Map find(Integer id)
     {
-        return this.builder.find(1);
+        createBuilderIfNotAlreadyCreated();
+        return this.builder.find(id);
     }
 
     public Map find(Integer id, String[] fields){
+        createBuilderIfNotAlreadyCreated();
         return this.builder.find(id,fields);
     }
 
 
     public ArrayList all()
     {
+        createBuilderIfNotAlreadyCreated();
         return this.builder.all();
     }
 
 
     public ArrayList all(String[] fields)
     {
+        createBuilderIfNotAlreadyCreated();
         return this.builder.all(fields);
     }
 
     public Builder where(String field, String operator, String value){
+        createBuilderIfNotAlreadyCreated();
         return this.builder.where(field,operator,value);
     }
 
     public int create(Map fields)
     {
+        createBuilderIfNotAlreadyCreated();
         return this.builder.create(fields);
     }
 
-    public int update(int id, Map fields){
+    public int update(int id, Map fields)
+    {
+        createBuilderIfNotAlreadyCreated();
         return this.builder.update(id,fields);
     }
 
+    public Builder with(String[] relationships){
+        createBuilderIfNotAlreadyCreated();
+        this.builder.eager = relationships;
+        return builder;
+    }
+
+//    public Map belongsTo(Class<User> userClass){
+//        System.out.println();
+//    }
 }
