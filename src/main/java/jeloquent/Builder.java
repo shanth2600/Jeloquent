@@ -1,5 +1,7 @@
 package jeloquent;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.*;
 
@@ -15,10 +17,13 @@ public class Builder {
     protected Connection conn = null;
     protected String table;
     protected String[] fields;
+    protected String[] eager = {};
     protected String Query = "SELECT *";
     protected List<String[]> where = new ArrayList<>(0);
+    protected Model model;
 
-    public Builder(String table, String[] fields){
+    public Builder(Model model, String table, String[] fields){
+        this.model = model;
         this.table = table;
         this.fields = fields;
         try{
@@ -51,6 +56,14 @@ public class Builder {
 
                 }
 
+            }else if(this.dbms.equals("sqlite")){
+                try{
+                    Class.forName("org.sqlite.JDBC");
+                    this.conn = DriverManager.getConnection("jdbc:"+ this.dbms + ":"
+                            +this.dbName + ".sqlite; create=true");
+                }catch (Exception e){
+                    e.getMessage();
+                }
             }
         }catch(Exception e){
 
@@ -68,6 +81,7 @@ public class Builder {
 
     public ArrayList get()
     {
+
         ArrayList list = null;
         list = this.makeMapList(this.runQuery("SELECT * from "+this.table+" "+this.compileWhere()+";"));
         return list;
@@ -80,13 +94,18 @@ public class Builder {
 
     protected String compileWhere()
     {
-        String whereClause = "where ";
-        for(Iterator<String[]> i = this.where.iterator(); i.hasNext(); ) {
-            String[] item = i.next();
-            whereClause += ""+item[0]+" "+item[1]+" '"+item[2]+"'";
-            if(i.hasNext()){
-                whereClause += " AND ";
+        String whereClause;
+        if(this.where.size() > 0){
+            whereClause = "where ";
+            for(Iterator<String[]> i = this.where.iterator(); i.hasNext(); ) {
+                String[] item = i.next();
+                whereClause += ""+item[0]+" "+item[1]+" '"+item[2]+"'";
+                if(i.hasNext()){
+                    whereClause += " AND ";
+                }
             }
+        }else{
+            whereClause = "";
         }
         return whereClause;
     }
@@ -116,16 +135,107 @@ public class Builder {
         return this.all();
     }
 
+    protected int extractId(Object record)
+    {
+        String id = ((Map) record).get("id").toString();
+        return Integer.parseInt(id);
+    }
+
+    protected Model instantiateModel(String modelClass)
+    {
+        try {
+            Class<?> clazz = Class.forName(modelClass);
+            try {
+                Object o = clazz.newInstance();
+                return (Model)o;
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    protected String extractRelationship(String modelClass)
+    {
+        String[] explodedClass = modelClass.split("\\.");
+        int index = Math.max(explodedClass.length-1,0);
+        return explodedClass[index].toLowerCase();
+    }
+
+    protected boolean endsWithS(String str)
+    {
+        return str.substring(str.length() -1).equals("s");
+    }
+
+    protected Map mergeRelationship(String relationship, String modelClass, int id, Map record)
+    {
+        ArrayList ls = null;
+        Model m = instantiateModel(modelClass);
+        String fieldName = this.endsWithS(relationship)?this.table.substring(0,this.table.length()-1)+"_id": "id";
+        ls = m.where(fieldName,"=",Integer.toString(id)).get();
+        record.put(extractRelationship(modelClass),ls);
+        return record;
+    }
+
+    public static void printList(ArrayList list)
+    {
+        int i;
+        for(i = 0; i < list.size(); i++ ){
+            System.out.println(list.get(i).toString());
+        }
+    }
+
+
+    protected String extractRelationshipTable(String relationship)
+    {
+        try {
+            Method method = this.model.getClass().getMethod(relationship);
+            try {
+                Object modelClass = method.invoke(this.model);
+                return modelClass.toString();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return relationship;
+    }
+
+    protected ArrayList eagerLoadRelationships(ArrayList ls)
+    {
+        int i;
+        if(this.eager.length > 0){
+            for(i = 0; i < this.eager.length; i++){
+                Iterator iterator = ls.iterator();
+                while(iterator.hasNext()){
+                    Object record = iterator.next();
+                    int id = this.extractId(record);
+                    Map map = this.mergeRelationship(this.eager[i],this.extractRelationshipTable(this.eager[i]),id, (Map)record);
+                }
+            }
+
+        }
+        return ls;
+    }
+
     protected ArrayList makeMapList(ResultSet rs)
     {
         ArrayList list = new ArrayList();
         try {
             while (rs.next()) {
                 list.add(makeMap(rs));
-
             }
         }catch(Exception e){}
-        return list;
+        return this.eagerLoadRelationships(list);
     }
 
     protected Map makeMap(ResultSet rs){
@@ -202,14 +312,13 @@ public class Builder {
         return rv;
     }
 
+
     public ResultSet runQuery(String query) {
         Statement stmt = null;
-
         ResultSet rs = null;
         try {
             stmt = this.conn.createStatement();
             rs = stmt.executeQuery(query);
-            return rs;
         } catch (Exception e) {
             System.out.println(e);
         }
