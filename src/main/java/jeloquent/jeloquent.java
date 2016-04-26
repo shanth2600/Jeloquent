@@ -18,13 +18,25 @@ public class jeloquent {
 
 
     public static void main(String[] args){
-//        Post p = new Post();
-//        ArrayList ls = p.with(new String[]{"user"}).where("body","=","hey there").get();
+        User usr = new User();
+//        ArrayList rc = usr.all();
+//        Map fields = new HashMap<>();
+//        fields.put("last_name","jimmy");
+//        usr.update(2,fields);
+//        fields.put("first_name","jimmy");
+//        fields.put("last_name","jimmy");
+//        usr.create(fields);
+//        printList(rc);
+        Post p = new Post();
+        ArrayList posts = p.with(new String[]{"user"}).get();
+        printList(posts);
 
+//        ArrayList ls = p.with(new String[]{"user"}).where("body","=","hey there").get();
+//
 //        printList(ls);
-        User user = new User();
-        ArrayList usr = user.with(new String[]{"profiles","posts"}).where("first_name","=","shant").get();
-        printList(usr);
+//        User user = new User();
+//        ArrayList xx = user.with(new String[]{"posts","profiles"}).where("first_name","=","shant").get();
+//        printList(xx);
 
     }
 

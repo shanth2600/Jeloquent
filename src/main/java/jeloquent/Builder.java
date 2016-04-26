@@ -86,13 +86,18 @@ public class Builder {
 
     protected String compileWhere()
     {
-        String whereClause = "where ";
-        for(Iterator<String[]> i = this.where.iterator(); i.hasNext(); ) {
-            String[] item = i.next();
-            whereClause += ""+item[0]+" "+item[1]+" '"+item[2]+"'";
-            if(i.hasNext()){
-                whereClause += " AND ";
+        String whereClause;
+        if(this.where.size() > 0){
+            whereClause = "where ";
+            for(Iterator<String[]> i = this.where.iterator(); i.hasNext(); ) {
+                String[] item = i.next();
+                whereClause += ""+item[0]+" "+item[1]+" '"+item[2]+"'";
+                if(i.hasNext()){
+                    whereClause += " AND ";
+                }
             }
+        }else{
+            whereClause = "";
         }
         return whereClause;
     }
@@ -302,7 +307,6 @@ public class Builder {
 
     public ResultSet runQuery(String query) {
         Statement stmt = null;
-
         ResultSet rs = null;
         try {
             stmt = this.conn.createStatement();
