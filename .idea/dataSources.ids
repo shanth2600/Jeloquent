@@ -10,4 +10,9 @@
     <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
     <schema name="" catalog=""/>
   </data-source>
+  <data-source name="Sqlite (Xerial) - jeloquent.sqlite [2]" uuid="552a0ad9-92b5-431b-be5d-0f24e3162b7a">
+    <database-info product="SQLite" version="3.8.9" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native"/>
+    <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed"/>
+    <schema name="" catalog=""/>
+  </data-source>
 </component>
