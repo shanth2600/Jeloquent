@@ -12,7 +12,7 @@
 
 # Get All Users
 ```
-Post user = new User();
+User user = new User();
 ArrayList<Map> users = user.all();
 ```
 
