@@ -87,10 +87,20 @@ result:
 ```
 
 User user = new User();
-ArrayList<HashMap> list = user.where("first_name","=","shant").get();
+ArrayList<HashMap> list = user.where("first_name","LIKE","J").get();
 
 
 ```
+
+result:
+```
+{last_name=Bags, id=1, first_name=Jimmy, email=Jimmy@gmail.com}
+{last_name=Bones, id=1, first_name=Johnny, email=johnny@gmail.com}
+{last_name=Bilson, id=1, first_name=James, email=james@gmail.com}
+{last_name=Bosley, id=1, first_name=Jedediah, email=Jeb@gmail.com}
+{last_name=Bigs, id=1, first_name=Jeff, email=null}
+```
+
 
 # Get All Posts
 ```
@@ -98,10 +108,21 @@ Post post = new Post();
 ArrayList<Map> posts = post.all();
 ```
 
+result:
+```
+{id=1, body=There, title=Hello}
+{id=2, body=Im feeling sad today, title=Dear Diary}
+```
+
 # Get All Posts with User model eager loaded
 ```
 Post post = new Post();
 ArrayList<Map> posts = post.with(new String[]{"user"}).all();
+```
+result:
+```
+{id=1, body=There, title=Hello, user=[{last_name=Jims, id=2, first_name=Johnny, email=johnny@gmail.com}]}
+{id=2, body=Im feeling sad today, title=Dear Diary, user=[{last_name=Jims, id=2, first_name=Johnny, email=johnny@gmail.com}]}
 ```
 
 # Creating a Post
