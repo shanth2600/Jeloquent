@@ -10,16 +10,27 @@ import java.util.Map;
  */
 public class jeloquent {
 
+    // 1. demonstrate find (with and witout fields)
+    // 2. demonstrate all (with and witout fields)
+    // 3. demonstrate where (with chaining) (here i am)
+    // 4. demonstrate create
+    // 5. demonstrate update
+
+
     public static void main(String[] args){
-        Post p = new Post();
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("title","herasdsde i am");
-        map.put("body","justscrew you");
-        p.update(1,map);
+//        Post p = new Post();
+//        ArrayList ls = p.with(new String[]{"user"}).where("body","=","hey there").get();
 
-//        ArrayList list = p.where("title","=","why").where("id","=","1").get(new String[]{"title"});
-//        printList(list);
+//        printList(ls);
+        User user = new User();
+        ArrayList usr = user.with(new String[]{"profiles","posts"}).where("first_name","=","shant").get();
+        printList(usr);
 
+    }
+
+    public static void printMap(Map map)
+    {
+        System.out.println(map.toString());
     }
 
 
