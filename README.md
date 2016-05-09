@@ -15,6 +15,14 @@
 User user = new User();
 ArrayList<Map> users = user.all();
 ```
+result:
+```
+{last_name=Bags, id=1, first_name=Jimmy, email=Jimmy@gmail.com}
+{last_name=Bones, id=1, first_name=Johnny, email=johnny@gmail.com}
+{last_name=Bilson, id=1, first_name=James, email=james@gmail.com}
+{last_name=Bosley, id=1, first_name=Jedediah, email=Jeb@gmail.com}
+{last_name=Bigs, id=1, first_name=Jeff, email=null}
+```
 
 # Get All Users With Posts and Profile Eager Loaded
 ```
