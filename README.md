@@ -29,6 +29,14 @@ result:
 User user = new User();
 ArrayList<HashMap> users = user.with(new String[]{"posts","profiles"}).all();
 ```
+result:
+```
+{post=[{title="i hate beachers",}], profile=[{bio=Hi there!, id=1}], last_name=Bags, id=1, first_name=Jimmy, email=jimmy@gmail.com}
+{post=[], profile=[{bio=Hello!, id=2}], last_name=Bones, id=2, first_name=johnny, email=johnny@gmail.com}
+{post=[], profile=[], last_name=Bilson, id=3, first_name=James, email=james@gmail.com}
+{post=[], profile=[], last_name=Bosley, id=4, first_name=Jebdediah, email=jeb@gmail.com}
+{post=[], profile=[], last_name=Bigs, id=5, first_name=Jeff, email=}
+```
 
 # Creating a User
 
