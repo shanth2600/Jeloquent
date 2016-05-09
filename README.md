@@ -50,6 +50,11 @@ user.create(fields);
 
 ```
 
+result:
+
+![Alt text](http://i.imgur.com/TEfFXru.png "Optional title")
+
+
 # Editing a User
 ```
 int id = 1;
@@ -59,6 +64,10 @@ fields.put("first_name","Johnny");
 fields.put("last_name","Jims");
 user.update(id,fields);
 ```
+result:
+
+![Alt text](http://i.imgur.com/bN6oDBu.png "Optional title")
+
 
 
 # Finding a User
@@ -67,6 +76,10 @@ int id = 1;
 User user = new User();
 user.find(id);
 
+```
+result:
+```
+{last_name=Bags, id=1, first_name=Jimmy, email=Jimmy@gmail.com}
 ```
 
 # Finding a set of users with a specific field value
